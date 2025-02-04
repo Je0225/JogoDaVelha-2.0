@@ -12,10 +12,10 @@ namespace JogoDaVelha2._0 {
       String meuJogo;
 
       if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "X")) {
-        //File.Create(AppDomain.CurrentDomain.BaseDirectory + "O");
+        File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "O","");
         meuJogo = "O";
       } else {
-        //File.Create(AppDomain.CurrentDomain.BaseDirectory + "X");
+        File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "X", "");
         meuJogo = "X";
       }
       Application.EnableVisualStyles();

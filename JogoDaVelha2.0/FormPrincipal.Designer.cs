@@ -35,14 +35,17 @@
       this.btn21 = new System.Windows.Forms.Button();
       this.btn11 = new System.Windows.Forms.Button();
       this.lblStatus = new System.Windows.Forms.Label();
+      this.lblPlacar = new System.Windows.Forms.Label();
+      this.lblPlacarX = new System.Windows.Forms.Label();
+      this.lblPlacarO = new System.Windows.Forms.Label();
       this.pnlBotoesJogo.SuspendLayout();
       this.SuspendLayout();
       // 
       // btnRecomecar
       // 
-      this.btnRecomecar.Location = new System.Drawing.Point(13, 3);
+      this.btnRecomecar.Location = new System.Drawing.Point(259, 3);
       this.btnRecomecar.Name = "btnRecomecar";
-      this.btnRecomecar.Size = new System.Drawing.Size(102, 23);
+      this.btnRecomecar.Size = new System.Drawing.Size(74, 23);
       this.btnRecomecar.TabIndex = 10;
       this.btnRecomecar.Text = "Recomeçar";
       this.btnRecomecar.UseVisualStyleBackColor = true;
@@ -59,7 +62,7 @@
       this.pnlBotoesJogo.Controls.Add(this.btn31);
       this.pnlBotoesJogo.Controls.Add(this.btn21);
       this.pnlBotoesJogo.Controls.Add(this.btn11);
-      this.pnlBotoesJogo.Location = new System.Drawing.Point(3, 32);
+      this.pnlBotoesJogo.Location = new System.Drawing.Point(3, 64);
       this.pnlBotoesJogo.Name = "pnlBotoesJogo";
       this.pnlBotoesJogo.Size = new System.Drawing.Size(343, 297);
       this.pnlBotoesJogo.TabIndex = 11;
@@ -176,18 +179,46 @@
       // 
       this.lblStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
       this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.lblStatus.Location = new System.Drawing.Point(0, 335);
+      this.lblStatus.Location = new System.Drawing.Point(0, 364);
       this.lblStatus.Name = "lblStatus";
       this.lblStatus.Size = new System.Drawing.Size(346, 17);
       this.lblStatus.TabIndex = 13;
-      this.lblStatus.Text = "Status";
       this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
+      // lblPlacar
+      // 
+      this.lblPlacar.Location = new System.Drawing.Point(20, 13);
+      this.lblPlacar.Name = "lblPlacar";
+      this.lblPlacar.Size = new System.Drawing.Size(97, 20);
+      this.lblPlacar.TabIndex = 14;
+      this.lblPlacar.Text = "X            x         O";
+      // 
+      // lblPlacarX
+      // 
+      this.lblPlacarX.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+      this.lblPlacarX.Location = new System.Drawing.Point(13, 33);
+      this.lblPlacarX.Name = "lblPlacarX";
+      this.lblPlacarX.Size = new System.Drawing.Size(47, 14);
+      this.lblPlacarX.TabIndex = 16;
+      this.lblPlacarX.Text = "0";
+      // 
+      // lblPlacarO
+      // 
+      this.lblPlacarO.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+      this.lblPlacarO.Location = new System.Drawing.Point(76, 33);
+      this.lblPlacarO.Name = "lblPlacarO";
+      this.lblPlacarO.Size = new System.Drawing.Size(44, 13);
+      this.lblPlacarO.TabIndex = 18;
+      this.lblPlacarO.Text = "0";
       // 
       // FormPrincipal
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(346, 352);
+      this.ClientSize = new System.Drawing.Size(346, 381);
+      this.Controls.Add(this.lblPlacarO);
+      this.Controls.Add(this.lblPlacarX);
+      this.Controls.Add(this.lblPlacar);
       this.Controls.Add(this.lblStatus);
       this.Controls.Add(this.pnlBotoesJogo);
       this.Controls.Add(this.btnRecomecar);
@@ -211,6 +242,9 @@
     private System.Windows.Forms.Button btn21;
     private System.Windows.Forms.Button btn11;
     private System.Windows.Forms.Label lblStatus;
+    private System.Windows.Forms.Label lblPlacar;
+    private System.Windows.Forms.Label lblPlacarX;
+    private System.Windows.Forms.Label lblPlacarO;
   }
 }
 

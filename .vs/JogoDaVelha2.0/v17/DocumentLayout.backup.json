@@ -3,19 +3,19 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|c:\\users\\user\\documents\\sources\\csharp\\jogodavelha2.0\\jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|solutionrelative:jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|c:\\users\\user\\documents\\sources\\csharp\\jogodavelha2.0\\jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|solutionrelative:jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\jogodavelha2.0\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|c:\\users\\user\\documents\\sources\\csharp\\jogodavelha2.0\\jogodavelha2.0\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|solutionrelative:jogodavelha2.0\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|c:\\users\\user\\documents\\sources\\csharp\\jogodavelha2.0\\jogodavelha2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|solutionrelative:jogodavelha2.0\\formprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\jogodavelha2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83BE38CC-F3F2-4F92-B6CD-C758A88AE0FD}|JogoDaVelha2.0\\JogoDaVelha2.0.csproj|solutionrelative:jogodavelha2.0\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -39,6 +39,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Status.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\Status.cs",
+              "RelativeDocumentMoniker": "JogoDaVelha2.0\\Status.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\Status.cs",
+              "RelativeToolTip": "JogoDaVelha2.0\\Status.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-04T16:55:19.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "FormPrincipal.cs [Design]",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\FormPrincipal.cs",
               "RelativeDocumentMoniker": "JogoDaVelha2.0\\FormPrincipal.cs",
@@ -50,26 +63,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Status.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\Status.cs",
-              "RelativeDocumentMoniker": "JogoDaVelha2.0\\Status.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\Status.cs",
-              "RelativeToolTip": "JogoDaVelha2.0\\Status.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAABgAAAB2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-31T13:57:45.18Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "FormPrincipal.cs",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\FormPrincipal.cs",
               "RelativeDocumentMoniker": "JogoDaVelha2.0\\FormPrincipal.cs",
               "ToolTip": "C:\\Users\\User\\Documents\\Sources\\CSharp\\JogoDaVelha2.0\\JogoDaVelha2.0\\FormPrincipal.cs",
               "RelativeToolTip": "JogoDaVelha2.0\\FormPrincipal.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAgwBYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAmwH4AAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-31T11:03:13.427Z",
               "EditorCaption": ""

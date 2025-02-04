@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -31,58 +32,118 @@ namespace JogoDaVelha2._0 {
 
     private Timer timer { get; set; }
 
-    private Status Status { get; set; }
-
     private Int32 QuantidadeJogadasDoOponente { get; set; }
+
+    private Boolean OponenteJaEsteveOnline {get; set; }
+
+    private Int32 MinhaPontuacao { get; set; }
+
+    private Int32 PontuacaoOponente { get; set; }
 
     public FormPrincipal(String meuJogo) {
       InitializeComponent();
-      MeuJogo = meuJogo;
-      Text += $@" - {MeuJogo}";
-      Posicoes = new String[3,3];
       O = "O";
       X = "X";
+      MeuJogo = meuJogo;
       JogoOponente = MeuJogo == X ? O : X;
-      EhMinhaVez = MeuJogo == X;
-      Status = new Status();
+      PathArquivoOponente = AppDomain.CurrentDomain.BaseDirectory + JogoOponente;
+      EhMinhaVez = !File.Exists(PathArquivoOponente);
+      OponenteJaEsteveOnline = File.Exists(PathArquivoOponente);
+      Text += $@" - {MeuJogo}";
+      Posicoes = new String[3,3];
       QuantidadeJogadasDoOponente = 0;
       timer = new Timer();
+      timer.Interval = 1000;
       timer.Tick += new EventHandler(ChecaStatus);
       timer.Start();
-      PathArquivoOponente = AppDomain.CurrentDomain.BaseDirectory + JogoOponente;
       PathMeuArquivo = AppDomain.CurrentDomain.BaseDirectory + MeuJogo;
+      btnRecomecar.Enabled = false;
+      MinhaPontuacao = 0;
+      PontuacaoOponente = 0;
+    }
+
+    private Boolean OponenteDesistiu() {
+      return (OponenteJaEsteveOnline) && !File.Exists(PathArquivoOponente);
+    }
+
+    private Boolean OponenteNuncaEsteveOnline() {
+      return !File.Exists(PathArquivoOponente) && !OponenteJaEsteveOnline;
+    }
+
+    private Boolean OponenteJogou() {
+      return File.ReadAllLines(PathArquivoOponente).Length > QuantidadeJogadasDoOponente && Status.statusJogo != Status.aguardandoOponenteEntrar.Key;
+    }
+    
+    private Boolean PodeJogar() {
+      return File.Exists(PathArquivoOponente) && EhMinhaVez && QuantidadeJogadasDoOponente == 0;
+    }
+
+    private Boolean EhVezDoOponente() {
+      return File.Exists(PathArquivoOponente) && !EhMinhaVez && (Status.statusJogo != Status.aguardandoOponenteEntrar.Key && Status.statusJogo != Status.vocePerdeu.Key && Status.statusJogo != Status.voceGanhou.Key);
+    }
+
+    private Boolean OponenteRecomecouJogo() {
+      return File.ReadAllLines(PathArquivoOponente).Length == 0 && QuantidadeJogadasDoOponente > 0 && (Status.statusJogo == Status.aguardandoOponenteEntrar.Key);
     }
 
     private void ChecaStatus(Object sender, EventArgs e) {
       timer.Stop();
-      if (!File.Exists(PathArquivoOponente)) {
+      if (OponenteDesistiu()) {
+        AtualizaStatus(Status.oponenteDesistiu);
+        RecomecarJogo();
+        EhMinhaVez = true;
+        QuantidadeJogadasDoOponente = 0;
+        PontuacaoOponente = 0;
+        MinhaPontuacao = 0;
+      }
+      else if (OponenteNuncaEsteveOnline()) {
         AtualizaStatus(Status.aguardandoOponenteEntrar);
       } 
-      else if (File.Exists(PathArquivoOponente) && EhMinhaVez) {
-        AtualizaStatus(Status.podeJogar);
+      else if (OponenteRecomecouJogo()) {
+        QuantidadeJogadasDoOponente = 0;
+        AtualizaStatus(EhMinhaVez ? Status.podeJogar : Status.aguardandoJogadaOponente);
+        AtualizaLabelsPlacar();
       }
-      else if (File.ReadAllLines(PathArquivoOponente).Length > QuantidadeJogadasDoOponente) {
+      else if (OponenteJogou()){
         AtualizaStatus(Status.podeJogar);
         EhMinhaVez = true;
         QuantidadeJogadasDoOponente++;
         LeJogadasOponente();
+        AtualizaLabelsPlacar();
       } 
-      else if (File.Exists(PathArquivoOponente) && !EhMinhaVez) {
-        AtualizaStatus(Status.aguardandoJogadaOponente);
+      else if (PodeJogar()) {
+        AtualizaStatus(Status.podeJogar);
+        OponenteJaEsteveOnline = true;
+        AtualizaLabelsPlacar();
       }
-      else if (QuantidadeJogadasDoOponente > 0 && !File.Exists(PathArquivoOponente)) {
-        AtualizaStatus(Status.oponenteDesistiu);
+      else if (EhVezDoOponente()) {
+        AtualizaStatus(Status.aguardandoJogadaOponente);
+        OponenteJaEsteveOnline = true;
+        AtualizaLabelsPlacar();
       }
       String ganhador = AlguemGanhou();
       if (!String.IsNullOrEmpty(ganhador)) {
         if (ganhador == MeuJogo) {
+          if (Status.statusJogo != Status.voceGanhou.Key) {
+            MinhaPontuacao++;
+          }
           AtualizaStatus(Status.voceGanhou);
         } else {
+          if (Status.statusJogo != Status.vocePerdeu.Key) {
+            PontuacaoOponente++;
+          }
           AtualizaStatus(Status.vocePerdeu);
         }
         VarreBotoesDoJogo(false);
+        btnRecomecar.Enabled = true;
+        AtualizaLabelsPlacar();
       }
       timer.Start();
+    }
+
+    private void AtualizaLabelsPlacar() {
+      lblPlacarX.Text = MeuJogo == X ? MinhaPontuacao.ToString() : PontuacaoOponente.ToString();
+      lblPlacarO.Text = MeuJogo == O ? MinhaPontuacao.ToString() : PontuacaoOponente.ToString();
     }
 
     private void AtualizaStatus(KeyValuePair<String, Color> status) {
@@ -92,21 +153,13 @@ namespace JogoDaVelha2._0 {
     }
 
     private void ClicouNoBotao(Button botao) {
-      if (!EhMinhaVez) {
-        lblStatus.Text = Status.aguardandoJogadaOponente.Key;
-        lblStatus.BackColor = Status.aguardandoJogadaOponente.Value;
-        Status.statusJogo = Status.aguardandoJogadaOponente.Key;
-        VarreBotoesDoJogo(false);
-      } else {
-        lblStatus.Text = Status.podeJogar.Key;
-        lblStatus.BackColor = Status.podeJogar.Value;
-        Status.statusJogo = Status.podeJogar.Key;
-
-        VarreBotoesDoJogo(true);
-        botao.Text = MeuJogo;
-        botao.Enabled = false;
-        RegistraMinhasJogadas(botao);
+      if (!EhMinhaVez || Status.statusJogo != Status.podeJogar.Key) {
+        return;
       }
+      VarreBotoesDoJogo(true);
+      botao.Text = MeuJogo;
+      botao.Enabled = false;
+      RegistraMinhasJogadas(botao);
       EhMinhaVez = !EhMinhaVez;
     }
 
@@ -177,6 +230,11 @@ namespace JogoDaVelha2._0 {
         for (int j = 0; j < 3; j++) {
           Posicoes[i, j] = null;
         }
+      }
+      File.WriteAllText(PathMeuArquivo, "");
+      if (Status.statusJogo != Status.oponenteDesistiu.Key) {
+        AtualizaStatus(Status.aguardandoOponenteEntrar);
+        btnRecomecar.Enabled = false;
       }
     }
 
