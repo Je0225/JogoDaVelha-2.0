@@ -16,7 +16,7 @@ namespace JogoDaVelha2._0 {
 
     private String PathMeuArquivo { get; set; }
 
-    private String PathArquivoOponente {get; set; }
+    private String PathArquivoOponente {get; set; } 
 
     private Boolean EhMinhaVez { get; set; }
 
@@ -50,7 +50,7 @@ namespace JogoDaVelha2._0 {
       Posicoes = new String[3,3];
 
       QuantidadeJogadasDoOponente = 0;
-      Vitorias = 0;
+      Vitorias = 0; 
       Derrotas = 0;
       Empates = 0;
 
@@ -121,7 +121,7 @@ namespace JogoDaVelha2._0 {
         OponenteJaEsteveOnline = true;
       }
       btnRecomecar.Enabled = NaoPodeRecomecar();
-      String ganhador = AlguemGanhou();
+      String ganhador = AlguemGanhou2();
       if (!String.IsNullOrEmpty(ganhador)) {
         if (ganhador == MeuJogo) {
           if (!Status.statusJogo.Equals(Status.voceGanhou)) {
@@ -188,6 +188,36 @@ namespace JogoDaVelha2._0 {
       minhasJogadas += $"{Convert.ToInt32(posicao[0])},{Convert.ToInt32(posicao[1])}\n";
       File.WriteAllText(PathMeuArquivo, minhasJogadas);
       Posicoes[Convert.ToInt32(posicao[0]), Convert.ToInt32(posicao[1])] = MeuJogo;
+    }
+
+    private String AlguemGanhou2() {
+      String res = "";
+      String valoresColunas = "";
+      String valoresLinhas = ""; 
+      String valoresDiagonal = $"{Posicoes[0, 0] ?? "N"}{Posicoes[1, 1] ?? "N"}{Posicoes[2, 2] ?? "N"}";
+      String valoresDiagonal2 = $"{Posicoes[0, 2] ?? "N"}{Posicoes[1, 1] ?? "N"}{Posicoes[2, 0] ?? "N"}";
+
+      for (int i = 0; i < 3; i++) {
+        valoresLinhas += $"{Posicoes[0, i] ?? "N"}{Posicoes[1, i] ?? "N"}{Posicoes[2, i] ?? "N"},";
+        valoresColunas += $"{Posicoes[i, 0] ?? "N"}{Posicoes[i, 1] ?? "N"}{Posicoes[i, 2] ?? "N"},";
+      }
+      if (!valoresColunas.Contains('N') && valoresColunas.Distinct().Count() == 3 &&
+          !valoresLinhas.Contains('N') && valoresLinhas.Distinct().Count() == 3) {
+        return "empate";
+      }
+      res = QuemGanhou(valoresDiagonal.Split(','));
+      res = res == "" ? QuemGanhou(valoresDiagonal2.Split(',')) : res;
+      res = res == "" ? QuemGanhou(valoresLinhas.Split(',')) : res;
+      return res == "" ? QuemGanhou(valoresColunas.Split(',')) : res;
+    }
+
+    private String QuemGanhou(String[] valores) {
+      foreach (String valor in valores) {
+        if (valor.Distinct().Count() == 1 && !valor.Contains('N')) {
+          return valor.Distinct().First().ToString();
+        }
+      }
+      return "";
     }
 
     private String AlguemGanhou() {
