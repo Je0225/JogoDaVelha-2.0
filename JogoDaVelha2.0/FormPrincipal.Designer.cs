@@ -35,15 +35,18 @@
       this.btn21 = new System.Windows.Forms.Button();
       this.btn11 = new System.Windows.Forms.Button();
       this.lblStatus = new System.Windows.Forms.Label();
-      this.lblPlacar = new System.Windows.Forms.Label();
-      this.lblPlacarX = new System.Windows.Forms.Label();
-      this.lblPlacarO = new System.Windows.Forms.Label();
+      this.lblVitorias = new System.Windows.Forms.Label();
+      this.lblDerrotasRes = new System.Windows.Forms.Label();
+      this.lblDerrotas = new System.Windows.Forms.Label();
+      this.lblEmpates = new System.Windows.Forms.Label();
+      this.lblEmpatesRes = new System.Windows.Forms.Label();
+      this.lblVitoriasRes = new System.Windows.Forms.Label();
       this.pnlBotoesJogo.SuspendLayout();
       this.SuspendLayout();
       // 
       // btnRecomecar
       // 
-      this.btnRecomecar.Location = new System.Drawing.Point(259, 3);
+      this.btnRecomecar.Location = new System.Drawing.Point(259, 18);
       this.btnRecomecar.Name = "btnRecomecar";
       this.btnRecomecar.Size = new System.Drawing.Size(74, 23);
       this.btnRecomecar.TabIndex = 10;
@@ -62,7 +65,7 @@
       this.pnlBotoesJogo.Controls.Add(this.btn31);
       this.pnlBotoesJogo.Controls.Add(this.btn21);
       this.pnlBotoesJogo.Controls.Add(this.btn11);
-      this.pnlBotoesJogo.Location = new System.Drawing.Point(3, 64);
+      this.pnlBotoesJogo.Location = new System.Drawing.Point(3, 49);
       this.pnlBotoesJogo.Name = "pnlBotoesJogo";
       this.pnlBotoesJogo.Size = new System.Drawing.Size(343, 297);
       this.pnlBotoesJogo.TabIndex = 11;
@@ -179,53 +182,87 @@
       // 
       this.lblStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
       this.lblStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.lblStatus.Location = new System.Drawing.Point(0, 364);
+      this.lblStatus.Location = new System.Drawing.Point(0, 354);
       this.lblStatus.Name = "lblStatus";
-      this.lblStatus.Size = new System.Drawing.Size(346, 17);
+      this.lblStatus.Size = new System.Drawing.Size(346, 26);
       this.lblStatus.TabIndex = 13;
       this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       // 
-      // lblPlacar
+      // lblVitorias
       // 
-      this.lblPlacar.Location = new System.Drawing.Point(20, 13);
-      this.lblPlacar.Name = "lblPlacar";
-      this.lblPlacar.Size = new System.Drawing.Size(97, 20);
-      this.lblPlacar.TabIndex = 14;
-      this.lblPlacar.Text = "X            x         O";
+      this.lblVitorias.Location = new System.Drawing.Point(14, 8);
+      this.lblVitorias.Name = "lblVitorias";
+      this.lblVitorias.Size = new System.Drawing.Size(50, 20);
+      this.lblVitorias.TabIndex = 14;
+      this.lblVitorias.Text = "Vitórias";
       // 
-      // lblPlacarX
+      // lblDerrotasRes
       // 
-      this.lblPlacarX.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-      this.lblPlacarX.Location = new System.Drawing.Point(13, 33);
-      this.lblPlacarX.Name = "lblPlacarX";
-      this.lblPlacarX.Size = new System.Drawing.Size(47, 14);
-      this.lblPlacarX.TabIndex = 16;
-      this.lblPlacarX.Text = "0";
+      this.lblDerrotasRes.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+      this.lblDerrotasRes.Location = new System.Drawing.Point(78, 28);
+      this.lblDerrotasRes.Name = "lblDerrotasRes";
+      this.lblDerrotasRes.Size = new System.Drawing.Size(44, 13);
+      this.lblDerrotasRes.TabIndex = 18;
+      this.lblDerrotasRes.Text = "0";
       // 
-      // lblPlacarO
+      // lblDerrotas
       // 
-      this.lblPlacarO.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-      this.lblPlacarO.Location = new System.Drawing.Point(76, 33);
-      this.lblPlacarO.Name = "lblPlacarO";
-      this.lblPlacarO.Size = new System.Drawing.Size(44, 13);
-      this.lblPlacarO.TabIndex = 18;
-      this.lblPlacarO.Text = "0";
+      this.lblDerrotas.AutoSize = true;
+      this.lblDerrotas.Location = new System.Drawing.Point(78, 8);
+      this.lblDerrotas.Name = "lblDerrotas";
+      this.lblDerrotas.Size = new System.Drawing.Size(47, 13);
+      this.lblDerrotas.TabIndex = 19;
+      this.lblDerrotas.Text = "Derrotas";
+      // 
+      // lblEmpates
+      // 
+      this.lblEmpates.AutoSize = true;
+      this.lblEmpates.Location = new System.Drawing.Point(140, 8);
+      this.lblEmpates.Name = "lblEmpates";
+      this.lblEmpates.Size = new System.Drawing.Size(48, 13);
+      this.lblEmpates.TabIndex = 21;
+      this.lblEmpates.Text = "Empates";
+      // 
+      // lblEmpatesRes
+      // 
+      this.lblEmpatesRes.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+      this.lblEmpatesRes.Location = new System.Drawing.Point(140, 28);
+      this.lblEmpatesRes.Name = "lblEmpatesRes";
+      this.lblEmpatesRes.Size = new System.Drawing.Size(44, 13);
+      this.lblEmpatesRes.TabIndex = 20;
+      this.lblEmpatesRes.Text = "0";
+      // 
+      // lblVitoriasRes
+      // 
+      this.lblVitoriasRes.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+      this.lblVitoriasRes.Location = new System.Drawing.Point(17, 28);
+      this.lblVitoriasRes.Name = "lblVitoriasRes";
+      this.lblVitoriasRes.Size = new System.Drawing.Size(47, 14);
+      this.lblVitoriasRes.TabIndex = 16;
+      this.lblVitoriasRes.Text = "0";
       // 
       // FormPrincipal
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(346, 381);
-      this.Controls.Add(this.lblPlacarO);
-      this.Controls.Add(this.lblPlacarX);
-      this.Controls.Add(this.lblPlacar);
+      this.ClientSize = new System.Drawing.Size(346, 380);
+      this.Controls.Add(this.lblEmpates);
+      this.Controls.Add(this.lblEmpatesRes);
+      this.Controls.Add(this.lblDerrotas);
+      this.Controls.Add(this.lblDerrotasRes);
+      this.Controls.Add(this.lblVitoriasRes);
+      this.Controls.Add(this.lblVitorias);
       this.Controls.Add(this.lblStatus);
       this.Controls.Add(this.pnlBotoesJogo);
       this.Controls.Add(this.btnRecomecar);
+      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+      this.MaximizeBox = false;
       this.Name = "FormPrincipal";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Jogo da Velha";
       this.pnlBotoesJogo.ResumeLayout(false);
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
@@ -242,9 +279,12 @@
     private System.Windows.Forms.Button btn21;
     private System.Windows.Forms.Button btn11;
     private System.Windows.Forms.Label lblStatus;
-    private System.Windows.Forms.Label lblPlacar;
-    private System.Windows.Forms.Label lblPlacarX;
-    private System.Windows.Forms.Label lblPlacarO;
+    private System.Windows.Forms.Label lblVitorias;
+    private System.Windows.Forms.Label lblDerrotasRes;
+    private System.Windows.Forms.Label lblDerrotas;
+    private System.Windows.Forms.Label lblEmpates;
+    private System.Windows.Forms.Label lblEmpatesRes;
+    private System.Windows.Forms.Label lblVitoriasRes;
   }
 }
 

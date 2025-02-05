@@ -36,9 +36,11 @@ namespace JogoDaVelha2._0 {
 
     private Boolean OponenteJaEsteveOnline {get; set; }
 
-    private Int32 MinhaPontuacao { get; set; }
+    private Int32 Vitorias { get; set; }
 
-    private Int32 PontuacaoOponente { get; set; }
+    private Int32 Derrotas { get; set; }
+
+    private Int32 Empates { get; set; }
 
     public FormPrincipal(String meuJogo) {
       InitializeComponent();
@@ -58,8 +60,9 @@ namespace JogoDaVelha2._0 {
       timer.Start();
       PathMeuArquivo = AppDomain.CurrentDomain.BaseDirectory + MeuJogo;
       btnRecomecar.Enabled = false;
-      MinhaPontuacao = 0;
-      PontuacaoOponente = 0;
+      Vitorias = 0;
+      Derrotas = 0;
+      Empates = 0;
     }
 
     private Boolean OponenteDesistiu() {
@@ -79,11 +82,15 @@ namespace JogoDaVelha2._0 {
     }
 
     private Boolean EhVezDoOponente() {
-      return File.Exists(PathArquivoOponente) && !EhMinhaVez && (Status.statusJogo != Status.aguardandoOponenteEntrar.Key && Status.statusJogo != Status.vocePerdeu.Key && Status.statusJogo != Status.voceGanhou.Key);
+      return File.Exists(PathArquivoOponente) && !EhMinhaVez && (Status.statusJogo != Status.aguardandoOponenteEntrar.Key && Status.statusJogo != Status.vocePerdeu.Key && Status.statusJogo != Status.voceGanhou.Key && Status.statusJogo != Status.deuEmpate.Key);
     }
 
     private Boolean OponenteRecomecouJogo() {
       return File.ReadAllLines(PathArquivoOponente).Length == 0 && QuantidadeJogadasDoOponente > 0 && (Status.statusJogo == Status.aguardandoOponenteEntrar.Key);
+    }
+
+    private Boolean NaoPodeRecomecar() {
+      return Status.statusJogo == Status.vocePerdeu.Key || Status.statusJogo == Status.voceGanhou.Key || Status.statusJogo == Status.deuEmpate.Key;
     }
 
     private void ChecaStatus(Object sender, EventArgs e) {
@@ -93,8 +100,6 @@ namespace JogoDaVelha2._0 {
         RecomecarJogo();
         EhMinhaVez = true;
         QuantidadeJogadasDoOponente = 0;
-        PontuacaoOponente = 0;
-        MinhaPontuacao = 0;
       }
       else if (OponenteNuncaEsteveOnline()) {
         AtualizaStatus(Status.aguardandoOponenteEntrar);
@@ -121,29 +126,37 @@ namespace JogoDaVelha2._0 {
         OponenteJaEsteveOnline = true;
         AtualizaLabelsPlacar();
       }
+      
+      btnRecomecar.Enabled = NaoPodeRecomecar();
       String ganhador = AlguemGanhou();
       if (!String.IsNullOrEmpty(ganhador)) {
         if (ganhador == MeuJogo) {
           if (Status.statusJogo != Status.voceGanhou.Key) {
-            MinhaPontuacao++;
+            Vitorias++;
           }
           AtualizaStatus(Status.voceGanhou);
-        } else {
+        } else if (ganhador == JogoOponente) {
           if (Status.statusJogo != Status.vocePerdeu.Key) {
-            PontuacaoOponente++;
+            Derrotas++;
           }
           AtualizaStatus(Status.vocePerdeu);
+        } else if (ganhador == "empate") {
+          if (Status.statusJogo != Status.deuEmpate.Key) {
+            Empates++;
+          }
+          AtualizaStatus(Status.deuEmpate);
         }
-        VarreBotoesDoJogo(false);
         btnRecomecar.Enabled = true;
+        VarreBotoesDoJogo(false);
         AtualizaLabelsPlacar();
       }
       timer.Start();
     }
 
     private void AtualizaLabelsPlacar() {
-      lblPlacarX.Text = MeuJogo == X ? MinhaPontuacao.ToString() : PontuacaoOponente.ToString();
-      lblPlacarO.Text = MeuJogo == O ? MinhaPontuacao.ToString() : PontuacaoOponente.ToString();
+      lblVitoriasRes.Text = Vitorias.ToString();
+      lblDerrotasRes.Text = Derrotas.ToString();
+      lblEmpatesRes.Text = Empates.ToString();
     }
 
     private void AtualizaStatus(KeyValuePair<String, Color> status) {
@@ -188,7 +201,15 @@ namespace JogoDaVelha2._0 {
       String quemGanhou = ""; 
       diagonal1 = new String[3];
       diagonal2 = new String[3];
-      
+      Boolean deuEmpate = false;
+
+      foreach (String posicao in Posicoes) {
+        if (posicao == null) {
+          deuEmpate = false;
+          break;
+        }
+        deuEmpate = true;
+      }
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
           String val = Posicoes[i, j];
@@ -214,7 +235,7 @@ namespace JogoDaVelha2._0 {
       if (diagonal2.Distinct().Count() == 1 && diagonal2[0] != null && diagonal2[1] != null && diagonal2[2] != null) {
         quemGanhou = diagonal2.Distinct().First();
       }
-      return quemGanhou;
+      return deuEmpate? "empate" : quemGanhou;
     }
 
     private void VarreBotoesDoJogo(Boolean habilitar, String text = null) {
