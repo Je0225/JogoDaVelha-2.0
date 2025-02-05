@@ -10,7 +10,10 @@ namespace JogoDaVelha2._0 {
     [STAThread]
     static void Main() {
       String meuJogo;
-
+      if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "X") && File.Exists(AppDomain.CurrentDomain.BaseDirectory + "O")) {
+        MessageBox.Show(@"O jogo não será aberto pois já existem dois jogadores.");
+        return;
+      }
       if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "X")) {
         File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "O","");
         meuJogo = "O";

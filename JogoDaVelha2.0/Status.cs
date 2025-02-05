@@ -24,7 +24,7 @@ namespace JogoDaVelha2._0 {
 
     public static KeyValuePair<String, Color> deuEmpate = new KeyValuePair<String, Color>("Deu empate!", Color.Orange);
 
-    public static String statusJogo = "";
+    public static KeyValuePair<String, Color> statusJogo;
 
   }
 }
