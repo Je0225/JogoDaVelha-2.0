@@ -91,6 +91,10 @@ namespace JogoDaVelha2._0 {
       return Status.statusJogo.Equals(Status.vocePerdeu) || Status.statusJogo.Equals(Status.voceGanhou) || Status.statusJogo.Equals(Status.deuEmpate);
     }
 
+    private Boolean AlguemGanhou() {
+      return !Status.statusJogo.Equals(Status.voceGanhou) && !Status.statusJogo.Equals(Status.vocePerdeu) && !Status.statusJogo.Equals(Status.deuEmpate);
+    }
+
     private void ChecaStatus(Object sender, EventArgs e) {
       Timer.Stop();
       if (OponenteDesistiu()) {
@@ -121,28 +125,26 @@ namespace JogoDaVelha2._0 {
         OponenteJaEsteveOnline = true;
       }
       btnRecomecar.Enabled = NaoPodeRecomecar();
-      String ganhador = AlguemGanhou2();
-      if (!String.IsNullOrEmpty(ganhador)) {
-        if (ganhador == MeuJogo) {
-          if (!Status.statusJogo.Equals(Status.voceGanhou)) {
-            Vitorias++;
-          }
-          AtualizaStatus(Status.voceGanhou);
-        } else if (ganhador == JogoOponente) {
-          if (!Status.statusJogo.Equals(Status.vocePerdeu)) {
-            Derrotas++;
-          }
-          AtualizaStatus(Status.vocePerdeu);
-        } else if (ganhador == "empate") {
-          if (!Status.statusJogo.Equals(Status.deuEmpate)) {
+      if (AlguemGanhou()) { 
+        KeyValuePair<String, String> posicaoJogoVencedor = QuemGanhou();
+        if (!String.IsNullOrEmpty(posicaoJogoVencedor.Key)) {
+          if (posicaoJogoVencedor.Key == "empate") {
             Empates++;
+            AtualizaStatus(Status.deuEmpate);
+          } else if (posicaoJogoVencedor.Key == MeuJogo) {
+              Vitorias++;
+            AtualizaStatus(Status.voceGanhou);
+            lblStatus.Text += " " +posicaoJogoVencedor.Value;
+          } else if (posicaoJogoVencedor.Key == JogoOponente) {
+              Derrotas++;
+            AtualizaStatus(Status.vocePerdeu);
+            lblStatus.Text += " " + posicaoJogoVencedor.Value;
           }
-          AtualizaStatus(Status.deuEmpate);
+          btnRecomecar.Enabled = true;
+          VarreBotoesDoJogo(false);
+          AtualizaLabelsPlacar();
         }
-        btnRecomecar.Enabled = true;
-        VarreBotoesDoJogo(false);
-        AtualizaLabelsPlacar();
-      }
+      } 
       Timer.Start();
     }
 
@@ -190,37 +192,43 @@ namespace JogoDaVelha2._0 {
       Posicoes[Convert.ToInt32(posicao[0]), Convert.ToInt32(posicao[1])] = MeuJogo;
     }
 
-    private String AlguemGanhou2() {
-      String res = "";
-      String valoresColunas = "";
-      String valoresLinhas = ""; 
-      String valoresDiagonal = $"{Posicoes[0, 0] ?? "N"}{Posicoes[1, 1] ?? "N"}{Posicoes[2, 2] ?? "N"}";
-      String valoresDiagonal2 = $"{Posicoes[0, 2] ?? "N"}{Posicoes[1, 1] ?? "N"}{Posicoes[2, 0] ?? "N"}";
-
-      for (int i = 0; i < 3; i++) {
-        valoresLinhas += $"{Posicoes[0, i] ?? "N"}{Posicoes[1, i] ?? "N"}{Posicoes[2, i] ?? "N"},";
-        valoresColunas += $"{Posicoes[i, 0] ?? "N"}{Posicoes[i, 1] ?? "N"}{Posicoes[i, 2] ?? "N"},";
-      }
-      if (!valoresColunas.Contains('N') && valoresColunas.Distinct().Count() == 3 &&
-          !valoresLinhas.Contains('N') && valoresLinhas.Distinct().Count() == 3) {
-        return "empate";
-      }
-      res = QuemGanhou(valoresDiagonal.Split(','));
-      res = res == "" ? QuemGanhou(valoresDiagonal2.Split(',')) : res;
-      res = res == "" ? QuemGanhou(valoresLinhas.Split(',')) : res;
-      return res == "" ? QuemGanhou(valoresColunas.Split(',')) : res;
+    private String GetJogada(Int32 linha, Int32 coluna) {
+      return $"{Posicoes[linha, coluna] ?? "N"}";
     }
 
-    private String QuemGanhou(String[] valores) {
-      foreach (String valor in valores) {
-        if (valor.Distinct().Count() == 1 && !valor.Contains('N')) {
-          return valor.Distinct().First().ToString();
+    private  KeyValuePair<String, String> RetornaPosicaoGanhador(List<String> jogadas, String posicao) {
+      foreach (String jogada in jogadas) {
+        if (jogada.Distinct().Count() == 1 && !jogada.Contains('N')) {
+          if (posicao == "Diagonal") {
+            return new KeyValuePair<String, String>($"{jogada[0].ToString()}",posicao);
+          }
+          return new KeyValuePair<String, String>($"{jogada[0].ToString()}", $"{posicao} {jogadas.IndexOf(jogada) + 1}");
         }
       }
-      return "";
+      return new KeyValuePair<String, String>("", "");
     }
 
-    private String AlguemGanhou() {
+    private KeyValuePair<String, String> QuemGanhou() {
+      KeyValuePair<String, String> res = new KeyValuePair<String, String>("", "");
+      List<String> linhas = new List<String>();
+      List<String> colunas = new List<String>();
+      List<String> diagonais = new List<String>() {
+        $"{GetJogada(0, 0)}{GetJogada(1, 1)}{GetJogada(2, 2)}",
+        $"{GetJogada(0, 2)}{GetJogada(1, 1)}{GetJogada(2, 0)}"
+      };
+      for (int i = 0; i < 3; i++) {
+        linhas.Add($"{GetJogada(0, i)}{GetJogada(1, i)}{GetJogada(2, i)}");
+        colunas.Add($"{GetJogada(i, 0)}{GetJogada(i, 1)}{GetJogada(i, 2)}");
+      }
+      if (!String.Join("", linhas).Contains("N")) {
+        return new KeyValuePair<String, String>("empate", "");
+      }
+      res = RetornaPosicaoGanhador(diagonais, "Diagonal");
+      res = res.Key == "" ? RetornaPosicaoGanhador(linhas, "Linha") : res;
+      return res.Key == "" ? RetornaPosicaoGanhador(colunas, "Coluna") : res;
+    }
+
+    /*private String AlguemGanhou() {
       String quemGanhou = ""; 
       diagonal1 = new String[3];
       diagonal2 = new String[3];
@@ -259,7 +267,7 @@ namespace JogoDaVelha2._0 {
         quemGanhou = diagonal2.Distinct().First();
       }
       return deuEmpate ? "empate" : quemGanhou;
-    }
+    }*/
 
     private void VarreBotoesDoJogo(Boolean habilitar, String text = null) {
       foreach (Button botao in pnlBotoesJogo.Controls) {
